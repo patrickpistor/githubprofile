@@ -35,7 +35,7 @@
         };
     });
     
-    app.config(function($routeProvide, $locationProvider) {
+    app.config(['$routeProvider', function($routeProvide) {
         $routeProvider
         .when('/', {
             templateUrl: 'main.html',
@@ -46,8 +46,7 @@
         .otherwise({
             template : "Bad Username"
         });
-        $locationProvider.html5Mode(true);
-    });
+    }]);
 
     var MainController = function($scope, github, $routeParams) {
         var onUserComplete = function(data) {
