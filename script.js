@@ -1,4 +1,3 @@
-// Code goes here
 (function() {
   
     var app = angular.module("portfolio", ['ngRoute']);
@@ -48,7 +47,7 @@
         });
     });
 
-    var MainController = function($scope, github, $routeParams) {
+    var UserController = function($scope, github, $routeParams) {
         var onUserComplete = function(data) {
             $scope.user = data;
             $scope.first = "";
@@ -85,6 +84,12 @@
         $scope.date = new Date();
     };
 
-    app.controller("MainController", ["$scope", "github", "$routeParams", MainController]);
+    app.controller("UserController", ["$scope", "github", "$routeParams", UserController]);
+    app.controller("MainController", ["$scope", "$location", function($scope, $location) {        
+        $scope.go = function(username) {
+            $location.path("/" + username);
+        }
+    }]);
+
 
 }());
