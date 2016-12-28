@@ -1,9 +1,9 @@
 <div ng-controller="MainController">
     <div align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 60px;" >
         <h1 style="font-weight: 800; font-size: 70px; color: #ecf0f1;">
-            Hi my name is, <span style="color: #1abc9c;">{{user.name}}</span>
+            Hi my name is <span style="color: #1abc9c;">{{user.name}}</span>
         </h1>
-        <img style="width:300px" ng-src="{{user.avatar_url}}"/><br/>
+        <img style="width:300px" class="circle" ng-src="{{user.avatar_url}}"/><br/>
         <div class="container">
             <p class="flow-text" style="color: #ecf0f1; font-weight: 200;">{{user.bio}}</p>
         </div>
@@ -68,7 +68,7 @@
         </div>
         <div class="footer-copyright" style="background-color: #2c3e50;">
             <div class="container">
-                    Copyright {{date | date:'yyyy'}} {{user.name}} and Patrick Pistor.
+                    Copyright {{date | date:'yyyy'}} {{user.name}} and <a href="http://githubprofile.com/">GitHub Profile</a>. Not affiliated with GitHub. All rights reserved. 
             </div>
         </div>
     </footer>
