@@ -35,7 +35,7 @@
         };
     });
     
-    app.config(['$routeProvider', function($routeProvide) {
+    app.config(function($routeProvider) {
         $routeProvider
         .when('/', {
             templateUrl: 'main.html',
@@ -46,7 +46,7 @@
         .otherwise({
             template : "Bad Username"
         });
-    }]);
+    });
 
     var MainController = function($scope, github, $routeParams) {
         var onUserComplete = function(data) {
