@@ -1,0 +1,79 @@
+<div ng-controller="MainController">
+    <div align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 60px;" >
+        <h1 style="font-weight: 800; font-size: 70px; color: #ecf0f1;">
+            Hi my name is, <span style="color: #1abc9c;">{{user.name}}</span>
+        </h1>
+        <img style="width:300px" ng-src="{{user.avatar_url}}"><br/>
+        <div class="container">
+            <p class="flow-text" style="color: #ecf0f1; font-weight: 200;">{{user.bio}}</p>
+        </div>
+        {{error}}
+    </div>
+    <div class="container"; align="center" style="padding-top: 60px; padding-bottom: 60px;">
+        <h1 style="font-weight: 800; font-size: 60px; color: #2c3e50;">About Me</h1>
+        <p class="flow-text" style="color: #2c3e50; ">{{first}} Some of the languages that I write in are: <span ng-repeat="repo in repos | unique:'language'" style="color: #1abc9c;"><span ng-if="repo.language != null">{{repo.language}}{{$last ? '' : ', '}}</span> </span>. {{message}}.</p>
+        </div>
+        {{error}}
+    </div>
+    <div align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 60px;">
+        <h1 style="font-weight: 800; font-size: 60px; color: #ecf0f1;">Projects</h1>
+        <div class="container" style="padding-top: 50px">
+            <div class="row">
+                <div class="col s4" ng-repeat="repo in repos">
+                    <div class="card small" style="background-color: #ecf0f1;">
+                        <div class="card-content">
+                            <span class="card-title" style="color: #2c3e50;">{{repo.name}}</span>
+                            <p  style="color: #2c3e50;">{{repo.description}}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{repo.html_url}}" style="color: #1abc9c;">Repo</a>
+                            <div ng-if="repo.language != null" class="chip" style="background-color: #1abc9c; color: #ecf0f1s;">
+                                    {{repo.language}}
+                            </div>
+                            <div ng-if="repo.language == null" class="chip" style="background-color: #1abc9c; color: #ecf0f1s;">
+                                    N/A
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container"; align="center" style="padding-top: 60px; padding-bottom: 60px;">
+        <h1 style="font-weight: 800; font-size: 60px; color: #2c3e50;">Contact Me</h1>
+        <p class="flow-text" style="color: #2c3e50;"> Here are some ways to get in touch with me. </p>
+        <div style="padding-top: 20px;">
+            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" href="{{user.html_url}}">Github</a>
+            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" href="mailto:{{user.email}}">Email</a>
+            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" href="{{user.blog}}">Website</a>
+        </div>
+    </div>
+    {{error}}
+    <footer class="page-footer" style="background-color: #34495e;">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">{{user.name}}</h5>
+                    <p class="grey-text text-lighten-4">{{user.bio}}</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="{{user.html_url}}">GitHub</a></li>
+                        <li><a class="grey-text text-lighten-3" href="mailto:{{user.email}}">Website</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{user.blog}}">Email</a></li>
+                        <li><a class="grey-text text-lighten-3" href="http://githubpages.com/">Github Pages</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright" style="background-color: #2c3e50;">
+            <div class="container">
+                    Copyright {{date | date:'yyyy'}} {{user.name}} and Patrick Pistor.
+            </div>
+        </div>
+    </footer>
+    <!-- Compiled and minified JavaScript -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+</div>
