@@ -35,7 +35,7 @@
         };
     });
     
-    app.config(function($routeProvider) {
+    app.config(function($routeProvide, $locationProvider) {
         $routeProvider
         .when('/', {
             templateUrl: 'main.html',
@@ -46,6 +46,7 @@
         .otherwise({
             template : "Bad Username"
         });
+        $locationProvider.html5Mode(true);
     });
 
     var MainController = function($scope, github, $routeParams) {
