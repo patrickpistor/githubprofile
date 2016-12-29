@@ -63,6 +63,7 @@
         .otherwise({
             templateUrl: '404.html'
         });
+        $locationProvider.html5Mode(true);
     });
 
     var UserController = function($scope, $rootScope, github, $routeParams, $location) {
