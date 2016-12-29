@@ -49,7 +49,7 @@
         };
     });
     
-    app.config(function($routeProvider) {
+    app.config(function($routeProvider, $locationProvider) {
         $routeProvider
         .when('/', {
             templateUrl: 'main.html'
