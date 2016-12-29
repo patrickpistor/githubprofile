@@ -1,38 +1,104 @@
-<div ng-controller="UserController">
-    <div align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 60px;" >
-        <h1 style="font-weight: 800; font-size: 70px; color: #ecf0f1;">
-            Hi my name is <span style="color: #1abc9c;">{{user.name}}</span>
-        </h1>
-        <img style="width:300px" class="circle" ng-src="{{user.avatar_url}}"/><br/>
-        <div class="container">
-            <p class="flow-text" style="color: #ecf0f1; font-weight: 200;">{{user.bio}}</p>
+<div id="top" ng-controller="UserController" scroll>
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+        <nav style="{{navbar}}">
+            <div class="nav-wrapper" style="display: table; margin: 0 auto;">
+                <ul id="nav-mobile" class="hide-on-med-and-down">
+                    <li><a href="#" style="{{color}}" scroll-to="info">What I Do</a></li>
+                    <li><a href="#" style="{{color}}" scroll-to="about">About Me</a></li>
+                    <li><a href="#" scroll-to="top"><i class="material-icons" style="color: #1abc9c; font-size: 60px;">perm_identity</i></a></li>
+                    <li><a href="#" style="{{color}}" scroll-to="projects">My Projects</a></li>
+                    <li><a href="#" style="{{color}}" scroll-to="contact">Contact Me</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <div align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 260px;">
+        <div style="padding-top: 100px;">
+            <h1 style="font-weight: 800; font-size: 70px; color: #ecf0f1;">
+                Hi, I am <span ng-if="user.name != null" style="color: #1abc9c;">{{user.name}}</span><span ng-if="user.name == null" style="color: #1abc9c;">{{user.login}}</span>
+            </h1>
+            <div class="container">
+                <p class="flow-text" style="color: #ecf0f1; font-weight: 200;">{{user.bio}}</p>
+            </div>
+            {{error}}
+        </div>
+    </div>
+    <div id="info" class="container" style="padding-top: 60px; padding-bottom: 60px;">
+        <div align="center">
+            <h1 style="font-weight: 800; font-size: 60px; color: #2c3e50;">What I do</h1>
+        </div>
+        <div class="row">
+            <div class="col s12 m2 l3"></div>
+            <div class="col s12 m4 l3">
+                <div class="card-panel" style="background-color: #2c3e50;">
+                    <span style="color: #ecf0f1;">
+                        <h5>Organizations</h5> 
+                        <ul style=" list-style-type: none;">
+                            <h5>
+                                <li ng-repeat="org in orgs" ng-if="orgs != ''" style="color: #1abc9c; list-style-type: none;">
+                                    <div class="chip" style="background-color: #1abc9c; color: #ecf0f1;">
+                                        <img src="{{org.avatar_url}}" alt="Contact Person">
+                                        {{org.login}}
+                                    </div>
+                                </li>
+                                <li ng-if="orgs == ''" style="color: #1abc9c; list-style-type: none;">
+                                    <h6>None yet!</h6>
+                                </li>
+                            </h5> 
+                        </ul>
+                    </span>
+                    </span>
+                </div>
+            </div>
+            <div class="col s12 m4 l3">
+                <div class="card-panel" style="background-color: #2c3e50;">
+                    <span style="color: #ecf0f1;">
+                        <h5>Programming Languages</h5> 
+                        <ul style="padding-left: 30px; list-style-type: decimal;">
+                            <h5><li ng-repeat="repo in repos | unique:'language'" ng-if="repo.language != null && repos != ''" style="color: #1abc9c; list-style-type: decimal;">{{repo.language}}</li></h5> 
+                            <li ng-if="repos == ''" style="color: #1abc9c; list-style-type: none;"><h6>None yet!</h6></li>
+                        </ul>
+                    </span>
+                    </span>
+                </div>
+            </div>
+            <div class="col s12 m2 l3"></div>
         </div>
         {{error}}
     </div>
-    <div class="container" align="center" style="padding-top: 60px; padding-bottom: 60px;">
-        <h1 style="font-weight: 800; font-size: 60px; color: #2c3e50;">About Me</h1>
-        <p class="flow-text" style="color: #2c3e50; ">{{first}} Some of the languages that I write in are: <span ng-repeat="repo in repos | unique:'language'" style="color: #1abc9c;"><span ng-if="repo.language != null">{{repo.language}}{{$last ? '' : ', '}}</span> </span>. {{message}}.</p>
-        {{error}}
+    <div id="about" align="center" style="padding-top: 60px; padding-bottom: 60px; background-color: #1abc9c;">
+        <div class="container">
+            <h1 style="font-weight: 800; font-size: 60px; color: #2c3e50;">About Me</h1>
+            <img style="width:300px" class="circle" ng-src="{{user.avatar_url}}"/><br/>
+            <p class="flow-text" style="color: #ecf0f1; ">{{first}} I have been using GitHub since {{(user.created_at).substring(0,4)}}. During this time, <span ng-if="user.public_repos > 0"> I have created {{user.public_repos}} <span ng-if="user.public_repos > 1">repos</span><span ng-if="user.public_repos == 1">repo</span></span><span ng-if="user.public_repos == 0">I have not created a repo</span><span ng-if="user.following > 0"> and have followed {{user.following}} <span ng-if="user.following > 1">users</span><span ng-if="user.following == 1">user</span></span><span ng-if="user.following == 0"> and don't currently follow any users</span>. I have also been followed by {{user.followers}} other users. {{message}}.</p>
+            {{error}}
+        </div>
     </div>
-    <div align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 60px;">
-        <h1 style="font-weight: 800; font-size: 60px; color: #ecf0f1;">Projects</h1>
+    <div id="projects" align="center" style="padding-top: 60px; background-color: #2c3e50; padding-bottom: 60px;">
+        <h1 style="font-weight: 800; font-size: 60px; color: #ecf0f1;">My Projects</h1>
         <div class="container" style="padding-top: 50px">
-            <div class="row">
+            <h3 ng-if="repos == ''" style="font-weight: 800; color: #1abc9c;">None yet!</h3>
+            <div class="row" ng-if="repos != ''">
                 <div class="col s4" ng-repeat="repo in repos | orderBy:'-stargazers_count'">
                     <div class="card small" style="background-color: #ecf0f1;">
                         <div class="card-content">
                             <span class="card-title" style="color: #2c3e50;">{{repo.name}}</span>
-                            <p  style="color: #2c3e50;">{{repo.description}}</p>
+                            <p style="color: #2c3e50;">{{repo.description}}</p>
                         </div>
                         <div class="card-action">
                             <a href="{{repo.html_url}}" style="color: #1abc9c;">Repo</a>
-                            <div ng-if="repo.language != null" class="chip" style="background-color: #1abc9c; color: #ecf0f1s;">
+                            <div ng-if="repo.stargazers_count > 0" class="chip" style="background-color: #3498db; color: #ecf0f1;">
+                                <i class="material-icons tiny" style="vertical-align: text-bottom; bottom: 2px; position: relative;">star</i><span style="padding-left: 2px; display: inline-block; box-sizing: border-box;">{{repo.stargazers_count}}</span>
+                            </div>
+                            <div ng-if="repo.language != null" class="chip" style="background-color: #1abc9c; color: #ecf0f1;">
                                     {{repo.language}}
                             </div>
-                            <div ng-if="repo.language == null" class="chip" style="background-color: #1abc9c; color: #ecf0f1s;">
+                            <div ng-if="repo.language == null" class="chip" style="background-color: #1abc9c; color: #ecf0f1;">
                                     N/A
                             </div>
-                            <div ng-if="repo.fork == true" class="chip" style="background-color: #f39c12; color: #ecf0f1s;">
+                            <div ng-if="repo.fork == true" class="chip" style="background-color: #f39c12; color: #ecf0f1;">
                                     Forked
                             </div>
                         </div>
@@ -41,13 +107,13 @@
             </div>
         </div>
     </div>
-    <div class="container"; align="center" style="padding-top: 60px; padding-bottom: 60px;">
+    <div id="contact" class="container"; align="center" style="padding-top: 60px; padding-bottom: 60px;">
         <h1 style="font-weight: 800; font-size: 60px; color: #2c3e50;">Contact Me</h1>
         <p class="flow-text" style="color: #2c3e50;"> Here are some ways to get in touch with me. </p>
         <div style="padding-top: 20px;">
             <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" href="{{user.html_url}}">Github</a>
-            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" href="mailto:{{user.email}}">Email</a>
-            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" href="{{user.blog}}">Website</a>
+            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" ng-if="user.email != null" href="mailto:{{user.email}}">Email</a>
+            <a class="waves-effect waves-light btn-large" style="background-color: #1abc9c; color: #ecf0f1s;" ng-if="user.email != user.blog" href="{{user.blog}}">Website</a>
         </div>
     </div>
     {{error}}
@@ -55,15 +121,16 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">{{user.name}}</h5>
+                    <h5 ng-if="user.name != null" class="white-text">{{user.name}}</h5>
+                    <h5 ng-if="user.name == null" class="white-text">{{user.login}}</h5>
                     <p class="grey-text text-lighten-4">{{user.bio}}</p>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
                     <ul>
                         <li><a class="grey-text text-lighten-3" href="{{user.html_url}}">GitHub</a></li>
-                        <li><a class="grey-text text-lighten-3" href="mailto:{{user.email}}">Website</a></li>
-                        <li><a class="grey-text text-lighten-3" href="{{user.blog}}">Email</a></li>
+                        <li><a class="grey-text text-lighten-3" href="mailto:{{user.email}}" ng-if="user.email != null">Email</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{user.blog}}" ng-if="user.email != user.blog">Website</a></li>
                         <li><a class="grey-text text-lighten-3" href="http://githubpages.com/">Github Pages</a></li>
                     </ul>
                 </div>
@@ -71,7 +138,7 @@
         </div>
         <div class="footer-copyright" style="background-color: #2c3e50;">
             <div class="container">
-                    Copyright {{date | date:'yyyy'}} {{user.name}} and <a href="http://githubprofile.com/">GitHub Profile</a>. Not affiliated with GitHub. All rights reserved. 
+                    Copyright {{date | date:'yyyy'}} <span ng-if="user.name != null">{{user.name}}</span><span ng-if="user.name == null">{{user.login}}</span> and <a href="http://githubprofile.com/">GitHub Profile</a>. Not affiliated with GitHub. All rights reserved. 
             </div>
         </div>
     </footer>
